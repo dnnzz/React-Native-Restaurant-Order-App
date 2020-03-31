@@ -1,0 +1,36 @@
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <div class="row col-md-12  custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <a routerLink="/create" class="btn btn-primary btn-xs"><b>+</b> Menuye yiyecek-içecek ekle</a>
+        <tr>
+            <th>Menüdeki isim</th>
+            <th>Fiyat</th>
+            <th>Stok durumu</th>
+            <th class="text-center">Çıkar-Düzenle</th>
+        </tr>
+    </thead>
+    <tr *ngFor='let item of items'>
+        <td>{{item.name}}</td>
+       
+        <td>{{item.price}}₺ 
+        </td>
+        <td>{{item.quantity}}
+            
+        </td>
+        <td class="text-center"> 
+           <button class="btn btn-info btn-xs"><a routerLink="/edit/{{item._id}}">
+            <span class="glyphicon glyphicon-edit">Düzenle </span>
+           </a>
+           </button>
+                <button (click)="deleteItem(item._id)" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove">Sil</span>
+                </button>
+                </td>
+    </tr>

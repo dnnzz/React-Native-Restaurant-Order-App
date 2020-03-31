@@ -1,0 +1,47 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="name">İsim</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          required
+          [(ngModel)]="item.name"
+          name="name"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="price">Fiyat</label>
+        <input
+          class="form-control"
+          id="price"
+          required
+          [(ngModel)]="item.price"
+          name="price"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="price">Miktar</label>
+        <input
+          class="form-control"
+          id="quantity"
+          required
+          [(ngModel)]="item.quantity"
+          name="quantity"
+        />
+      </div>
+  
+      <button (click)="updateItem()" class="btn btn-success">Kaydet</button>
+    </div>
+    <div *ngIf="submitted">
+      <h4>Başarıyla güncellendi!</h4>
+    </div>
+  </div>
