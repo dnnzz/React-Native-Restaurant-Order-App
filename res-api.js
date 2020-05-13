@@ -16,26 +16,82 @@ app.use(
       preflightContinue: false 
   })
 );
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Mongo db
 var mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://dnz:YyTgX60mdyWYBcg9@cluster0-h7yb7.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect("mongodb+srv://dnz:JZbvc7S1s91vawb2@cluster0-h7yb7.mongodb.net/test?retryWrites=true&w=majority", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 }).then(() => console.log('DB Connected!'))
   .catch(err => {
-    console.log('errorrrr');
+    console.log(err);
   });
 
 
-
+var User = require('./user.js');
 var Item = require('./item.js');
+var Order = require('./order.js');
 app.use(express.json());
 // 
 
 
 // Routes ===========================================
+app.get('/users/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    res.send(user);
+    if (!user) res.status(404).send("No item found")
+    res.status(200).send()
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+// Goruntuleme
+  app.get('/users', async (req, res) => {
+    const user = await User.find({});
 
+    try {
+      res.send(user);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  // Ekleme POST http://localhost:3000/users)
+  app.post('/users',async (req, res) => {
+    const user = new User(req.body);
+    try {
+      await user.save();
+      res.send(user);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  // -Silme http://localhost:3000/users/:id
+  app.delete('/users/:id', async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id)
+  
+      if (!user) res.status(404).send("No item found")
+      res.status(200).send()
+    } catch (err) {
+      res.status(500).send(err)
+    }
+  })
+// Guncelleme  http://localhost:3000/items/:id
+  app.put('/users/:id', async (req, res) => {
+    try {
+      await User.findByIdAndUpdate(req.params.id, req.body)
+      await User.save()
+      res.send(food)
+    } catch (err) {
+      res.status(500).send(err)
+    }
+  })
 // /items/5e80e72f73b67c09407ecd38 olarak donduruyor. tekli silme ve update işleminde kullanılacak.
 app.get('/items/:id', async (req, res) => {
   try {
