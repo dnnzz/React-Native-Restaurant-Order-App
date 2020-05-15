@@ -2,15 +2,22 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var OrderSchema   = new Schema({
-    username: {
+    phone: {
         type: String,
         required: true
       },
-      orders: {
+      name: {
         type: String, 
       },
-      ordertotal:{
-        type: Number
+      address:{
+        type: String,
+        required: true
+      },
+      basket: {
+        type: Object
+      },
+      total: {
+        type:Number
       }
 });
 

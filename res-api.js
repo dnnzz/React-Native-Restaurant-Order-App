@@ -41,6 +41,48 @@ app.use(express.json());
 
 
 // Routes ===========================================
+app.get('/orders/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+    res.send(order);
+    if (!order) res.status(404).send("No item found")
+    res.status(200).send()
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+// Goruntuleme
+  app.get('/orders', async (req, res) => {
+    const order = await Order.find({});
+
+    try {
+      res.send(order);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  // Ekleme POST http://localhost:3000/orders
+  app.post('/orders',async (req, res) => {
+    const order = new Order(req.body);
+    try {
+      await order.save();
+      res.send(order);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  // -Silme http://localhost:3000/orders/:id
+  app.delete('/orders/:id', async (req, res) => {
+    try {
+      const order = await Order.findByIdAndDelete(req.params.id)
+  
+      if (!order) res.status(404).send("No item found")
+      res.status(200).send()
+    } catch (err) {
+      res.status(500).send(err)
+    }
+  })
+//====================================================
 app.get('/users/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id)

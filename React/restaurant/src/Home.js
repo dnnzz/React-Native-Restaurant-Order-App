@@ -19,11 +19,7 @@ let storage = new Storage({
 });
 import axios from 'axios';
 
-
 global.storage = storage;
-
-
-
 
 class Home extends Component {
   state = { isEmpty: true, basket: {}, total: 0, phone: "", name: "", address: "" }
@@ -42,7 +38,7 @@ class Home extends Component {
       alert('Verileriniz Temizlendi');
     });
   }
-   updateInformation() {
+  updateInformation() {
     storage.save({
       key: 'info',
       data: {
@@ -50,65 +46,65 @@ class Home extends Component {
         name: this.state.name,
         address: this.state.address
       }
-      
-    }).then(ret =>{
+
+    }).then(ret => {
       alert('Adres kaydedildi.');
     }
     );
   }
-  saveDatabase(){
+  saveDatabase() {
     axios({
       method: 'post',
       url: 'http://10.0.2.2:3000/users',
-      data:{
-        phone : this.state.phone,
+      data: {
+        phone: this.state.phone,
         name: this.state.name,
         address: this.state.address
       }
-    }).then(function (response){
-      console.log('response',response);
-    }).catch(function (error){
-      console.log("error",error);
+    }).then(function (response) {
+      console.log('response', response);
+    }).catch(function (error) {
+      console.log("error", error);
     });
   }
-  mixedFunction(){
+  mixedFunction() {
     this.updateInformation();
     this.saveDatabase();
   }
   render() {
     return (
-      <View style={{ flex: 1  }}>
+      <View style={{ flex: 1 }}>
         <Form style={{ backgroundColor: 'white', padding: 10 }}>
-              <Item>
-                <Label>İsim Soyisim</Label>
-                <Input
-                  onChangeText={(text) => this.setState({ name: text })}
-                  value={this.state.name}
-                />
-              </Item>
-              <Item>
-                <Label>Telefon</Label>
-                <Input
-                  placeholder="544xxxxxxx"
-                  onChangeText={(text) => this.setState({ phone: text })}
-                  keyboardType='phone-pad'
-                  maxLength={10}
-                  value={this.state.phone}
-                />
-              </Item>
+          <Item>
+            <Label>İsim Soyisim</Label>
+            <Input
+              onChangeText={(text) => this.setState({ name: text })}
+              value={this.state.name}
+            />
+          </Item>
+          <Item>
+            <Label>Telefon</Label>
+            <Input
+              placeholder="544xxxxxxx"
+              onChangeText={(text) => this.setState({ phone: text })}
+              keyboardType='phone-pad'
+              maxLength={10}
+              value={this.state.phone}
+            />
+          </Item>
 
-              <Item>
-                <Input
-                  onChangeText={(text) => this.setState({ address: text })}
-                  placeholder='Adres'
-                  value={this.state.address}
-                />
-              </Item>
-              <Button color="chartreuse" style={{ margin: 5 }} onPress={() => { this.mixedFunction() }} title="Adresi Kaydet" block>
-              </Button>
-              <Button color="#8b0000" style={{ margin: 5 }} onPress={() => { this.clearData() }} title="Adresi sil" block>
-              </Button>
-            </Form>
+          <Item>
+            <Input
+              onChangeText={(text) => this.setState({ address: text })}
+              placeholder='Adres'
+              value={this.state.address}
+            />
+          </Item>
+          <Button color="chartreuse" style={{ margin: 5 }} onPress={() => { this.mixedFunction() }} title="Adresi Kaydet" block>
+          </Button>
+          <Button color="#8b0000" style={{ margin: 5 }} onPress={() => { this.clearData() }} title="Adresi sil" block>
+          </Button>
+        </Form>
       </View>
     );
   }
