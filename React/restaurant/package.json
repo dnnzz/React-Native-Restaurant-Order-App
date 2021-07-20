@@ -18,7 +18,7 @@
     "axios": "^0.19.2",
     "native-base": "2.13.12",
     "react": "16.11.0",
-    "react-native": "0.62.0",
+    "react-native": "0.62.3",
     "react-native-bottom-navigation": "0.7.6",
     "react-native-communications": "2.2.1",
     "react-native-easy-grid": "0.2.2",
